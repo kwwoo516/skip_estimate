@@ -1,0 +1,24 @@
+#!/bin/bash
+threads="1 2 4 8 16"
+skips="skip cskip vcskip"
+num=10000
+benchmarks="1 2 3" ##put get scan
+
+cp ~/skip_vchain/src/skip .
+cp ~/skip_vchain/src/cskip .
+cp ~/skip_vchain/src/vcskip .
+for bench in $benchmarks
+do
+	echo "$bench"
+	for thread in $threads
+	do
+		echo  "$thread" "skip"   `./skip $thread $num $bench   | head -n 1 | awk '{print $9}'`
+		sleep 1 
+		echo  "$thread" "cskip"  `./cskip $thread $num $bench  | head -n 1 | awk '{print $9}'`
+		sleep 1 
+		echo  "$thread" "vcskip" `./vcskip $thread $num $bench | head -n 1 | awk '{print $9}'`
+		sleep 1 
+	done
+	echo " "
+	
+done
