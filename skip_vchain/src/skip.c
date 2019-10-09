@@ -175,13 +175,12 @@ int skip_list_put (long key, long data, struct skip_list_t* sl) {
 	// set estimate
 	for (Lv = 0; Lv <= sl->max_height; Lv++) {
 		num_nodeLevel[Lv] = (sl->node_cnt / pow(2, Lv));
-	} // put할 때마다 계산.. 비효율적
+	}
 
 	for (Lv = 0; Lv <= sl->max_height; Lv++) {
 		k_est[Lv] = (k_last - k_first) / (long)(num_nodeLevel[Lv] + divide_val);
 	}
 
-	// 처음에 노드가 쌓일 시점엔 원래의 동작을 하는것이 낫겠음
 	if (sl->node_cnt > 3) {
 	    #define SWITCH
 	}
